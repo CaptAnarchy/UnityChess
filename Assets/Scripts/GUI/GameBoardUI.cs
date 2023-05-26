@@ -36,14 +36,14 @@ namespace ChessBase {
 		[SerializeField] private List<GamePiece> CapturedList;
 
 		// Variables for text testing
-		private enum UpDown { Down = -1, Start = 0, Up = 1 };
 		private Text text;
-		private UpDown textChanged = UpDown.Start;
+		private GameObject CanvasGO;
 
 
 		// Start is called before the first frame update
 		void Awake() {
 			Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.None);
+			CanvasGO = GameObject.Find("Canvas");
 
 			// There can be only one
 			GameBoardUI[] GameBoards = FindObjectsOfType<GameBoardUI>();
@@ -60,24 +60,8 @@ namespace ChessBase {
 		}
 
 
-
-
 		// Update is called once per frame, handles drag and drop
 		void Update() {
-
-			// Screen text rendering test
-			// Press the space key to change the Text message.
-			if (Input.GetKeyDown(KeyCode.Space)) {
-				if (textChanged != UpDown.Down) {
-					text.text = "Text changed";
-					textChanged = UpDown.Down;
-				}
-				else {
-					text.text = "Text changed back";
-					textChanged = UpDown.Up;
-				}
-			}
-
 
 			// Left button released while dragging
 			if (IsDragActive && Input.GetMouseButtonUp(0)) {
@@ -184,39 +168,42 @@ namespace ChessBase {
 		public void InitializeLabels() {
 
 			// Load the Arial font from the Unity Resources folder.
-			Font arial;
-			arial = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
-
-			// Create Canvas GameObject.
-			GameObject canvasGO = new GameObject();
-			canvasGO.name = "Canvas";
-			canvasGO.AddComponent<Canvas>();
-			canvasGO.AddComponent<CanvasScaler>();
-			canvasGO.AddComponent<GraphicRaycaster>();
-
-			// Get canvas from the GameObject.
-			Canvas canvas;
-			canvas = canvasGO.GetComponent<Canvas>();
-			canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+			Font Arial;
+			Arial = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
 
 			// Create the Text GameObject.
-			GameObject textGO = new GameObject();
-			textGO.transform.parent = canvasGO.transform;
-			textGO.AddComponent<Text>();
+			GameObject TextGO = new GameObject("TextGO");
+			TextGO.transform.parent = CanvasGO.transform;
+			RectTransform rectTransform = TextGO.AddComponent<RectTransform>();
+			rectTransform.localScale = Vector3.one;
+			rectTransform.sizeDelta = Vector2.zero;
+			rectTransform.anchorMin = Vector2.zero;
+			rectTransform.anchorMax = Vector2.one;
+			rectTransform.offsetMin = Vector2.zero;
+			rectTransform.offsetMax = Vector2.zero;
+			rectTransform.localPosition = Vector3.zero;
 
 			// Set Text component properties.
-			text = textGO.GetComponent<Text>();
-			text.font = arial;
-			text.text = "Press space key";
+			text = TextGO.AddComponent<Text>();
+			text.font = Arial;
+			text.text = BoardInfo.FileNames[1].ToString();
 			text.fontSize = 48;
 			text.alignment = TextAnchor.MiddleCenter;
+			text.horizontalOverflow = HorizontalWrapMode.Overflow;
+			text.verticalOverflow = VerticalWrapMode.Overflow;
 
 			// Provide Text position and size using RectTransform.
-			RectTransform rectTransform;
 			rectTransform = text.GetComponent<RectTransform>();
-			rectTransform.localPosition = new Vector3(0, 0, 0);
-			rectTransform.sizeDelta = new Vector2(600, 200);
-			rectTransform.transform.localPosition = GetSquarePosition(new Ordinate(1, 1));
+			//rectTransform.localPosition = new Vector3(50, 50, 0);
+			//rectTransform.sizeDelta = new Vector2(600, 200);
+			//rectTransform.transform.localPosition =
+			Camera Cam = GameObject.FindGameObjectWithTag("UICamera").GetComponent<Camera>();
+			if (Cam) {
+				Vector3 WorldPos = GetSquarePosition(new Ordinate(1, 1));
+				Vector3 ScreenPos = Cam.WorldToScreenPoint(WorldPos);
+				rectTransform.localPosition = ScreenPos;
+
+			}
 
 		}
 
