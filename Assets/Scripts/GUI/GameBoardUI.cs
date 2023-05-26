@@ -131,7 +131,7 @@ namespace ChessBase {
 			} 
 
 			// Initialize and set color
-			SetPerspective();
+			SetPerspective(WhiteOnBottom);
 			UpdateSquareColors();
 		}
 
@@ -167,44 +167,81 @@ namespace ChessBase {
 		// Generate file and rank labels
 		public void InitializeLabels() {
 
-			// Load the Arial font from the Unity Resources folder.
+			// Load the Arial font from Unity resources
 			Font Arial;
 			Arial = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
 
-			// Create the Text GameObject.
-			GameObject TextGO = new GameObject("TextGO");
-			TextGO.transform.parent = CanvasGO.transform;
-			RectTransform rectTransform = TextGO.AddComponent<RectTransform>();
+			// Container game object for the file labels
+			GameObject FileLabelsGO = new GameObject("FileLabels");
+			FileLabelsGO.transform.SetParent(CanvasGO.transform);
+			RectTransform rectTransform = FileLabelsGO.AddComponent<RectTransform>();
 			rectTransform.localScale = Vector3.one;
 			rectTransform.sizeDelta = Vector2.zero;
 			rectTransform.anchorMin = Vector2.zero;
 			rectTransform.anchorMax = Vector2.one;
-			rectTransform.offsetMin = Vector2.zero;
-			rectTransform.offsetMax = Vector2.zero;
 			rectTransform.localPosition = Vector3.zero;
 
-			// Set Text component properties.
-			text = TextGO.AddComponent<Text>();
-			text.font = Arial;
-			text.text = BoardInfo.FileNames[1].ToString();
-			text.fontSize = 48;
-			text.alignment = TextAnchor.MiddleCenter;
-			text.horizontalOverflow = HorizontalWrapMode.Overflow;
-			text.verticalOverflow = VerticalWrapMode.Overflow;
+			// Loop through file
+			for (int File = 0; File < 8; File++) {
+				string FileLabel = BoardInfo.FileNames[File].ToString();
 
-			// Provide Text position and size using RectTransform.
-			rectTransform = text.GetComponent<RectTransform>();
-			//rectTransform.localPosition = new Vector3(50, 50, 0);
-			//rectTransform.sizeDelta = new Vector2(600, 200);
-			//rectTransform.transform.localPosition =
-			Camera Cam = GameObject.FindGameObjectWithTag("UICamera").GetComponent<Camera>();
-			if (Cam) {
-				Vector3 WorldPos = GetSquarePosition(new Ordinate(1, 1));
-				Vector3 ScreenPos = Cam.WorldToScreenPoint(WorldPos);
-				rectTransform.localPosition = ScreenPos;
+				// Create the file label text GameObject
+				GameObject TextGO = new GameObject(FileLabel);
+				TextGO.transform.SetParent(FileLabelsGO.transform);
+				rectTransform = TextGO.AddComponent<RectTransform>();
+				rectTransform.localScale = Vector3.one;
+				rectTransform.sizeDelta = Vector2.zero;
+				rectTransform.anchorMin = Vector2.one * 0.5f;
+				rectTransform.anchorMax = Vector2.one * 0.5f;
+				rectTransform.localPosition = Vector3.zero;
 
+				// Set Text component properties
+				text = TextGO.AddComponent<Text>();
+				text.font = Arial;
+				text.text = FileLabel;
+				text.fontSize = 30;
+				text.alignment = TextAnchor.MiddleCenter;
+				text.horizontalOverflow = HorizontalWrapMode.Overflow;
+				text.verticalOverflow = VerticalWrapMode.Overflow;
+				Vector3 WorldPos = GetSquarePosition(new Ordinate(File, 0));
+				text.rectTransform.localPosition = new Vector3(WorldPos.x * 72.5f, -4.5f * 72.5f, 0);
 			}
 
+			// Container game object for the rank labels
+			GameObject RankLabelsGO = new GameObject("RankLabels");
+			RankLabelsGO.transform.SetParent(CanvasGO.transform);
+			rectTransform = RankLabelsGO.AddComponent<RectTransform>();
+			rectTransform.localScale = Vector3.one;
+			rectTransform.sizeDelta = Vector2.zero;
+			rectTransform.anchorMin = Vector2.zero;
+			rectTransform.anchorMax = Vector2.one;
+			rectTransform.localPosition = Vector3.zero;
+
+			// Loop through rank
+			for (int Rank = 0; Rank < 8; Rank++) {
+				string RankLabel = BoardInfo.RankNames[Rank].ToString();
+
+				// Create the file label text GameObject
+				GameObject TextGO = new GameObject(RankLabel);
+				TextGO.transform.SetParent(RankLabelsGO.transform);
+				rectTransform = TextGO.AddComponent<RectTransform>();
+				rectTransform.localScale = Vector3.one;
+				rectTransform.sizeDelta = Vector2.zero;
+				rectTransform.anchorMin = Vector2.one * 0.5f;
+				rectTransform.anchorMax = Vector2.one * 0.5f;
+				rectTransform.localPosition = Vector3.zero;
+
+				// Set Text component properties
+				text = TextGO.AddComponent<Text>();
+				text.font = Arial;
+				text.text = RankLabel;
+				text.fontSize = 30;
+				text.alignment = TextAnchor.MiddleCenter;
+				text.horizontalOverflow = HorizontalWrapMode.Overflow;
+				text.verticalOverflow = VerticalWrapMode.Overflow;
+				Vector3 WorldPos = GetSquarePosition(new Ordinate(0, Rank));
+				text.rectTransform.localPosition = new Vector3(-4.5f * 72.5f, WorldPos.y * 72.5f, 0);
+			}
 		}
 
 
