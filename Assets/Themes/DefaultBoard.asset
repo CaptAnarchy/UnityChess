@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a692e476a97492429b474dcfb8334e8, type: 3}
+  m_Name: DefaultBoard
+  m_EditorClassIdentifier: 
+  LightColors:
+    Normal: {r: 0.8, g: 0.7176471, b: 0.68235296, a: 1}
+    Selected: {r: 1, g: 0, b: 0, a: 1}
+    Legal: {r: 0, g: 1, b: 0, a: 1}
+    MoveFrom: {r: 0.5660378, g: 0.4968277, b: 0.39248845, a: 1}
+    MoveTo: {r: 0.5647059, g: 0.49803922, b: 0.39215687, a: 1}
+  DarkColors:
+    Normal: {r: 0.4392157, g: 0.4, b: 0.46666667, a: 1}
+    Selected: {r: 1, g: 0, b: 0, a: 1}
+    Legal: {r: 0, g: 0.603, b: 0, a: 1}
+    MoveFrom: {r: 0.397, g: 0.35013193, b: 0.27569443, a: 1}
+    MoveTo: {r: 0.39607844, g: 0.34901962, b: 0.27450982, a: 1}

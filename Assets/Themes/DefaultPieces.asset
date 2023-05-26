@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0b41b1d9b89e54d9c49499768b1b9c, type: 3}
+  m_Name: DefaultPieces
+  m_EditorClassIdentifier: 
+  PieceTexture: {fileID: 2800000, guid: d9fe0203570f0b547bc562f1ea7846da, type: 3}
+  WhitePieces:
+    King: {fileID: 5815346444209245126, guid: d9fe0203570f0b547bc562f1ea7846da, type: 3}
+    Queen: {fileID: -5707208235025365451, guid: d9fe0203570f0b547bc562f1ea7846da, type: 3}
+    Rook: {fileID: -8231439895271094956, guid: d9fe0203570f0b547bc562f1ea7846da, type: 3}
+    Bishop: {fileID: 1801684832408766203, guid: d9fe0203570f0b547bc562f1ea7846da, type: 3}
+    Knight: {fileID: 5262411738066956617, guid: d9fe0203570f0b547bc562f1ea7846da, type: 3}
+    Pawn: {fileID: 421191062671846005, guid: d9fe0203570f0b547bc562f1ea7846da, type: 3}
+  BlackPieces:
+    King: {fileID: 6713323665980220584, guid: d9fe0203570f0b547bc562f1ea7846da, type: 3}
+    Queen: {fileID: -5519977043689896800, guid: d9fe0203570f0b547bc562f1ea7846da, type: 3}
+    Rook: {fileID: -9028730725494140493, guid: d9fe0203570f0b547bc562f1ea7846da, type: 3}
+    Bishop: {fileID: -4521170433502928094, guid: d9fe0203570f0b547bc562f1ea7846da, type: 3}
+    Knight: {fileID: 2484422302985503874, guid: d9fe0203570f0b547bc562f1ea7846da, type: 3}
+    Pawn: {fileID: -7446464978723970562, guid: d9fe0203570f0b547bc562f1ea7846da, type: 3}
